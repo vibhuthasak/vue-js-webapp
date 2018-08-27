@@ -10,4 +10,7 @@ module.exports = {
       storage: './vue-js-webapp.sqlite',
     },
   },
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET || 'secret',
+  },
 };
