@@ -37,9 +37,7 @@ module.exports = {
       }
 
       // const isValidpassword = (password === user.password);
-      console.log('Hiii');
       const isValidpassword = await user.comparePassword(password);
-      console.log(isValidpassword);
 
       if (!isValidpassword) {
         return res.status(403).send({
@@ -52,8 +50,6 @@ module.exports = {
         user: UserJson,
         token: jwtSignUser(UserJson),
       });
-
-      res.send(user.toJSON());
     } catch (err) {
       res.status(500).send({
         error: 'Error occured',
