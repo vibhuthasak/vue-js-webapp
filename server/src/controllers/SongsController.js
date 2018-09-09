@@ -29,7 +29,7 @@ module.exports = {
       res.send(song);
     } catch (err) {
       res.status(500).send({
-        error: 'Error has occured trying to create songs',
+        error: 'Error has occured trying to show song',
       });
     }
   },
@@ -43,7 +43,7 @@ module.exports = {
       res.send(song);
     } catch (err) {
       res.status(500).send({
-        error: 'Error has occured trying to create songs',
+        error: 'Error has occured trying to update song',
       });
     }
   },
