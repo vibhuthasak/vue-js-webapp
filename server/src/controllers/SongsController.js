@@ -33,4 +33,18 @@ module.exports = {
       });
     }
   },
+  async save(req, res) {
+    try {
+      const song = await Song.update(req.body, {
+        where: {
+          id: req.params.songId,
+        },
+      });
+      res.send(song);
+    } catch (err) {
+      res.status(500).send({
+        error: 'Error has occured trying to create songs',
+      });
+    }
+  },
 };
