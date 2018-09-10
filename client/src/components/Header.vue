@@ -1,16 +1,21 @@
 <template>
   <v-toolbar fixed dark class="cyan">
     <v-toolbar-title class="mr-4">
-      <span class='home' @click="navigateTo({name: 'root'})">
+      <router-link
+        class='home'
+        tag="span"
+        :to="{name: 'root'}">
         VuejsApp
-      </span>
+      </router-link>
     </v-toolbar-title>
 
   <v-toolbar-items>
     <v-btn
       flat
       dark
-      @click="navigateTo({name: 'songs'})">
+      :to="{
+        name : 'songs'
+        }">
       Browse
     </v-btn>
   </v-toolbar-items>
@@ -20,10 +25,12 @@
   <v-toolbar-items>
     <v-btn
       v-if="!$store.state.isLoggedIn"
-      flat dark @click="navigateTo({name: 'login'})"> Login </v-btn>
+      flat
+      dark
+      :to="{name: 'login'}"> Login </v-btn>
     <v-btn
       v-if="!$store.state.isLoggedIn"
-      flat dark @click="navigateTo({name: 'register'})"> Sign Up </v-btn>
+      flat dark :to="({name: 'register'})"> Sign Up </v-btn>
     <v-btn
       v-if="$store.state.isLoggedIn"
       flat dark @click="logout"> Sign Out </v-btn>
@@ -35,10 +42,10 @@
 <script>
 export default {
   methods: {
-    navigateTo (route) {
-      // console.log(this)
-      this.$router.push(route)
-    },
+    // navigateTo (route) {
+    //   // console.log(this)
+    //   this.$router.push(route)
+    // },
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)

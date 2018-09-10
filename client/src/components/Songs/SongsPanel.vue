@@ -34,7 +34,7 @@
             <v-btn
                 dark
                 class="cyan"
-                @click="navigateTo({
+                :to="({
                 name: 'song',
                 params: {
                     songId: song.id
@@ -65,14 +65,22 @@ export default {
       songs: null
     }
   },
-  async mounted () {
-    var songsRes = await SongService.index()
-    // console.log('Songs', songsRes)
-    this.songs = songsRes.data
-  },
-  methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+  // async mounted () {
+  //   var songsRes = await SongService.index()
+  //   // console.log('Songs', songsRes)
+  //   this.songs = songsRes.data
+  // },
+  // methods: {
+  //   navigateTo (route) {
+  //     this.$router.push(route)
+  //   }
+  // },
+  watch: {
+    '$route.query.search': {
+      immediate: true,
+      async handler (value) {
+        this.songs = (await SongService.index(value)).data
+      }
     }
   }
 }
