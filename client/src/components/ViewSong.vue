@@ -121,17 +121,20 @@ export default {
   methods: {
     async setBookmark () {
       try {
-        this.bookmark = (await BookmarkService.post({
+        const bookmarks = (await BookmarkService.post({
           songId: this.song.id,
           userId: this.$store.state.user.id
         })).data
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0]
+        }
       } catch (err) {
         console.log(err)
       }
     },
     async unsetBookmark () {
       try {
-        await BookmarkService.delete(this.bookmark.id)
+        await BookmarkService.delete(this.bookmark.bookmarkId)
         this.bookmark = null
       } catch (err) {
         console.log(err)
