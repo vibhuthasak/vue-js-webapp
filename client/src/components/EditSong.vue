@@ -66,7 +66,7 @@
           dark
           class="cyan"
           @click="save">
-          Create Song
+          Save Song
         </v-btn>
       </v-flex>
     </v-layout>
