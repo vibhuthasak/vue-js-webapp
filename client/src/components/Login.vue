@@ -36,7 +36,7 @@ export default {
         })
         // console.log(this)
         this.$store.dispatch('setToken', response.data.token)
-        this.$store.dispatch('setUser', response.data.user.email)
+        this.$store.dispatch('setUser', response.data.user)
         this.$router.push({
           name: 'songs'
         })
