@@ -34,6 +34,9 @@ export default {
           email: this.email,
           password: this.password
         })
+        this.$router.push({
+          name: 'login'
+        })
       } catch (error) {
         this.error = error.response.data.error
       }

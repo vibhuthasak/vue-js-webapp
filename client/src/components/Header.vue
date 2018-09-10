@@ -4,7 +4,7 @@
       <router-link
         class='home'
         tag="span"
-        :to="{name: 'root'}">
+        :to="{name: 'songs'}">
         VuejsApp
       </router-link>
     </v-toolbar-title>
@@ -51,7 +51,7 @@ export default {
       this.$store.dispatch('setUser', null)
       // TODO: redirect user to homepage
       this.$router.push({
-        name: 'root'
+        name: 'songs'
       })
     }
   }
@@ -64,7 +64,7 @@ export default {
 }
 
 .home:hover {
-  color: #E9E;
+  color: cyan;
 }
 
 </style>
