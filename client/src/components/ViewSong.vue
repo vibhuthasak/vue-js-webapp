@@ -18,14 +18,31 @@
             <v-btn
               dark
               class="cyan"
-              :to="({
+              :to="{
                 name: 'song-edit',
                 params: {
                   songId: song.id
                 }
-              })">
+              }">
               Edit
             </v-btn>
+
+            <v-btn
+              v-if="isLoggedIn && !bookmark"
+              dark
+              class="cyan"
+              @click="setBookmark">
+              Set As Bookmark
+            </v-btn>
+
+            <v-btn
+              v-if="isLoggedIn && bookmark"
+              dark
+              class="cyan"
+              @click="unsetBookmark">
+              Unset Bookmark
+            </v-btn>
+
           </v-flex>
 
           <v-flex xs6>
@@ -76,23 +93,49 @@
 
 import SongService from '@/services/SongService'
 import Panel from '@/components/Panel'
+import {mapState} from 'vuex'
+import BookmarkService from '@/services/BookmarksService'
 
 export default {
   data () {
     return {
-      song: {}
+      song: {},
+      bookmark: null
     }
   },
-
+  computed: {
+    ...mapState([
+      'isLoggedIn'
+    ])
+  },
   async mounted () {
     const songId = this.$store.state.route.params.songId
     this.song = (await SongService.show(songId)).data
-    // console.log(this.song)
+    if (!this.isLoggedIn) return
+    this.bookmark = (await BookmarkService.index({
+      songId: this.song.id,
+      userId: this.$store.state.user.id
+    })).data
   },
 
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+    async setBookmark () {
+      try {
+        this.bookmark = (await BookmarkService.post({
+          songId: this.song.id,
+          userId: this.$store.state.user.id
+        })).data
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async unsetBookmark () {
+      try {
+        await BookmarkService.delete(this.bookmark.id)
+        this.bookmark = null
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
 
